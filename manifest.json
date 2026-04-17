@@ -15,71 +15,34 @@
       "src": "https://worldcup2026-marco.netlify.app/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://worldcup2026-marco.netlify.app/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     },
     {
       "src": "https://worldcup2026-marco.netlify.app/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://worldcup2026-marco.netlify.app/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     }
   ],
-  "categories": [
-    "sports",
-    "entertainment",
-    "news"
-  ],
+  "categories": ["sports", "entertainment", "news"],
   "shortcuts": [
     {
       "name": "Groups",
       "short_name": "Groups",
-      "description": "View the 12 World Cup groups",
       "url": "/?tab=1",
-      "icons": [
-        {
-          "src": "https://worldcup2026-marco.netlify.app/icon-192.png",
-          "sizes": "192x192",
-          "type": "image/png"
-        }
-      ]
+      "icons": [{"src": "https://worldcup2026-marco.netlify.app/icon-512.png", "sizes": "512x512", "type": "image/png"}]
     },
     {
       "name": "Quiz",
       "short_name": "Quiz",
-      "description": "Play the football quiz",
       "url": "/?tab=3",
-      "icons": [
-        {
-          "src": "https://worldcup2026-marco.netlify.app/icon-192.png",
-          "sizes": "192x192",
-          "type": "image/png"
-        }
-      ]
+      "icons": [{"src": "https://worldcup2026-marco.netlify.app/icon-512.png", "sizes": "512x512", "type": "image/png"}]
     },
     {
       "name": "Predictions",
       "short_name": "Predictions",
-      "description": "Make your World Cup predictions",
       "url": "/?tab=2",
-      "icons": [
-        {
-          "src": "https://worldcup2026-marco.netlify.app/icon-192.png",
-          "sizes": "192x192",
-          "type": "image/png"
-        }
-      ]
+      "icons": [{"src": "https://worldcup2026-marco.netlify.app/icon-512.png", "sizes": "512x512", "type": "image/png"}]
     }
   ],
   "screenshots": [

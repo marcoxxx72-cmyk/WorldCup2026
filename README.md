@@ -1,1 +1,1 @@
-# Mundial2026
+# WorldCup2026

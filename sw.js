@@ -1,8 +1,10 @@
-var CACHE_NAME = 'mundial2026-v3';
+var CACHE_NAME = 'wc2026app-v1';
 var URLS = [
   '/',
   '/index.html',
-  '/manifest.json'
+  '/manifest.json',
+  '/icon-192.png',
+  '/icon-512.png'
 ];
 
 self.addEventListener('install', function(e){

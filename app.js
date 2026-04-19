@@ -1176,6 +1176,7 @@ function App(){
             e(Card,{style:{marginBottom:10,padding:'12px 14px'}},
               iMatches.map(function(m,i){
                 return e('div',{key:m.id,style:{marginBottom:10,padding:'8px 10px',background:'rgba(0,0,0,0.2)',borderRadius:9,border:'1px solid '+(m.played?'rgba(40,200,40,0.3)':BD)}},
+                  m.label&&e('div',{style:{fontSize:9,color:'#6a86a0',marginBottom:5,textAlign:'center',letterSpacing:0.5}},m.label),
                   e('div',{style:{display:'flex',alignItems:'center',gap:6}},
                     e('div',{style:{flex:1,fontSize:11,fontWeight:'bold',textAlign:'right',color:m.played&&m.goalsHome>m.goalsAway?G:'#eee'}},m.home),
                     e('input',{type:'number',min:0,max:9,value:m.goalsHome===null?'':m.goalsHome,onChange:function(ev){

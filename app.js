@@ -142,9 +142,21 @@ var STARS = [
   {name:'Vinicius Jr.',flag:'🇧🇷',club:'Real Madrid',pos:'FW',age:25,stat:'Ballon dOr nominee 2024',rating:94,group:'C',hair:'#1a1a1a',skin:'#8d5524',shirt:'#ffffff'},
   {name:'Pedri',flag:'🇪🇸',club:'FC Barcelona',pos:'MF',age:23,stat:'Euro 2024 champion',rating:93,group:'H',hair:'#3d2b1f',skin:'#d4a574',shirt:'#a50044'},
   {name:'Jude Bellingham',flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',club:'Real Madrid',pos:'MF',age:22,stat:'Best player Euro 2024',rating:93,group:'L',hair:'#1a1a1a',skin:'#8d5524',shirt:'#ffffff'},
+  {name:'Harry Kane',flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',club:'Bayern Munich',pos:'FW',age:32,stat:'England all-time top scorer',rating:92,group:'L',hair:'#8b7355',skin:'#f5c5a3',shirt:'#ffffff'},
   {name:'Rodri',flag:'🇪🇸',club:'Man. City',pos:'MF',age:29,stat:'Ballon dOr 2024',rating:92,group:'H',hair:'#2c1810',skin:'#c8a882',shirt:'#6cabdd'},
-  {name:'Lamine Yamal',flag:'🇪🇸',club:'FC Barcelona',pos:'FW',age:18,stat:'Euro 2024 champion',rating:92,group:'H',hair:'#1a1a1a',skin:'#c8a882',shirt:'#a50044'},
-  {name:'Cristiano Ronaldo',flag:'🇵🇹',club:'Al Nassr',pos:'FW',age:41,stat:'915 career goals',rating:90,group:'K',hair:'#1a1a1a',skin:'#d4a574',shirt:'#006600'}
+  {name:'Lamine Yamal',flag:'🇪🇸',club:'FC Barcelona',pos:'FW',age:18,stat:'Euro 2024 champion',rating:91,group:'H',hair:'#1a1a1a',skin:'#c8a882',shirt:'#a50044'},
+  {name:'Antoine Griezmann',flag:'🇫🇷',club:'Atletico Madrid',pos:'FW',age:35,stat:'World Cup 2018 winner',rating:90,group:'I',hair:'#f5d78e',skin:'#f5c5a3',shirt:'#003189'},
+  {name:'Cristiano Ronaldo',flag:'🇵🇹',club:'Al Nassr',pos:'FW',age:41,stat:'915 career goals',rating:90,group:'K',hair:'#1a1a1a',skin:'#d4a574',shirt:'#006600'},
+  {name:'Ruben Dias',flag:'🇵🇹',club:'Man. City',pos:'DF',age:28,stat:'Best defender PL 2021',rating:89,group:'K',hair:'#1a1a1a',skin:'#d4a574',shirt:'#6cabdd'},
+  {name:'Bukayo Saka',flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',club:'Arsenal',pos:'FW',age:24,stat:'PFA Young Player 2024',rating:89,group:'L',hair:'#1a1a1a',skin:'#8d5524',shirt:'#ef0107'},
+  {name:'Gavi',flag:'🇪🇸',club:'FC Barcelona',pos:'MF',age:21,stat:'Euro 2024 champion',rating:88,group:'H',hair:'#3d2b1f',skin:'#d4a574',shirt:'#a50044'},
+  {name:'Phil Foden',flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',club:'Man. City',pos:'MF',age:26,stat:'PFA Player of Year 2024',rating:88,group:'L',hair:'#f5d78e',skin:'#f5c5a3',shirt:'#6cabdd'},
+  {name:'Federico Valverde',flag:'🇺🇾',club:'Real Madrid',pos:'MF',age:27,stat:'Copa America 2024',rating:88,group:'H',hair:'#3d2b1f',skin:'#d4a574',shirt:'#ffffff'},
+  {name:'Lionel Messi',flag:'🇦🇷',club:'Inter Miami',pos:'FW',age:39,stat:'8x Ballon dOr winner',rating:88,group:'J',hair:'#3d2b1f',skin:'#d4a574',shirt:'#74acdf'},
+  {name:'Achraf Hakimi',flag:'🇲🇦',club:'PSG',pos:'DF',age:27,stat:'African Player of Year 2022',rating:87,group:'C',hair:'#1a1a1a',skin:'#8d5524',shirt:'#004170'},
+  {name:'Victor Osimhen',flag:'🇳🇬',club:'Galatasaray',pos:'FW',age:26,stat:'Serie A top scorer 2024',rating:86,group:'G',hair:'#1a1a1a',skin:'#4a2800',shirt:'#ff6600'},
+  {name:'Sadio Mane',flag:'🇸🇳',club:'Al Nassr',pos:'FW',age:33,stat:'AFCON winner 2022',rating:85,group:'I',hair:'#1a1a1a',skin:'#4a2800',shirt:'#23a455'},
+  {name:'Raphinha',flag:'🇧🇷',club:'FC Barcelona',pos:'FW',age:29,stat:'Champions League 2025',rating:85,group:'C',hair:'#1a1a1a',skin:'#8d5524',shirt:'#a50044'}
 ];
 
 // ── TRANSLATIONS ───────────────────────────────────────────────

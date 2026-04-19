@@ -432,30 +432,61 @@ function App(){
   }
 
   function buildKnockout(standings, phase){
-    var pairs=[];
-    if(phase==='r32'){
-      var keys=Object.keys(GROUPS);
-      // 1st vs 2nd of different groups
-      var pairings=[['A','B'],['C','D'],['E','F'],['G','H'],['I','J'],['K','L']];
-      pairings.forEach(function(p){
-        var g1=p[0];var g2=p[1];
-        if(standings[g1]&&standings[g2]){
-          pairs.push({home:standings[g1].teams[0],away:standings[g2].teams[1],played:false,goalsHome:null,goalsAway:null});
-          pairs.push({home:standings[g2].teams[0],away:standings[g1].teams[1],played:false,goalsHome:null,goalsAway:null});
-        }
-      });
-      // 4 more from best 3rds
-      var thirds=Object.values(standings).map(function(s){return s.teams[2];}).slice(0,4);
-      for(var i=0;i<thirds.length;i+=2){
-        if(thirds[i]&&thirds[i+1])pairs.push({home:thirds[i],away:thirds[i+1],played:false,goalsHome:null,goalsAway:null});
-      }
-    } else {
-      // Use previous round winners
-      for(var i=0;i<pairs.length;i+=2){
-        // handled by progressKnockout
-      }
-    }
-    return pairs.map(function(p,i){return Object.assign({},p,{id:phase+i,phase:phase});});
+    if(phase!=='r32')return [];
+    // ── OFFICIAL FIFA 2026 ROUND OF 32 BRACKET ──────────────────
+    // Source: ESPN / FIFA official schedule
+    // Best 8 third-place teams - ranked by pts, gd, gf
+    var allThirds=Object.entries(standings).map(function(e){
+      var g=e[0];var s=e[1];var t=s.teams[2];
+      return {team:t,group:g,pts:s.pts[t]||0,gd:s.gd[t]||0,gf:s.gf[t]||0};
+    }).sort(function(a,b){
+      if(b.pts!==a.pts)return b.pts-a.pts;
+      if(b.gd!==a.gd)return b.gd-a.gd;
+      return b.gf-a.gf;
+    });
+    var best8thirds=allThirds.slice(0,8).map(function(x){return x.team;});
+    function w(g){return standings[g]?standings[g].teams[0]:'TBD';}
+    function ru(g){return standings[g]?standings[g].teams[1]:'TBD';}
+    function t3(i){return best8thirds[i]||'TBD';}
+
+    // Official R32 matchups per FIFA/ESPN:
+    var pairs=[
+      // Match 73: 2nd A vs 2nd B
+      {home:ru('A'),away:ru('B'),label:'2nd A vs 2nd B'},
+      // Match 74: 1st E vs Best 3rd (A/B/C/D/F)
+      {home:w('E'),away:t3(0),label:'1st E vs Best 3rd'},
+      // Match 75: 1st F vs 2nd C
+      {home:w('F'),away:ru('C'),label:'1st F vs 2nd C'},
+      // Match 76: 1st C vs 2nd F
+      {home:w('C'),away:ru('F'),label:'1st C vs 2nd F'},
+      // Match 77: 1st I vs Best 3rd (C/D/F/G/H)
+      {home:w('I'),away:t3(1),label:'1st I vs Best 3rd'},
+      // Match 78: 2nd E vs 2nd I
+      {home:ru('E'),away:ru('I'),label:'2nd E vs 2nd I'},
+      // Match 79: 1st A vs Best 3rd (C/E/F/H/I)
+      {home:w('A'),away:t3(2),label:'1st A vs Best 3rd'},
+      // Match 80: 1st L vs Best 3rd (E/H/I/J/K)
+      {home:w('L'),away:t3(3),label:'1st L vs Best 3rd'},
+      // Match 81: 1st D vs Best 3rd (B/E/F/I/J)
+      {home:w('D'),away:t3(4),label:'1st D vs Best 3rd'},
+      // Match 82: 1st G vs Best 3rd (A/E/H/I/J)
+      {home:w('G'),away:t3(5),label:'1st G vs Best 3rd'},
+      // Match 83: 2nd K vs 2nd L
+      {home:ru('K'),away:ru('L'),label:'2nd K vs 2nd L'},
+      // Match 84: 1st H vs 2nd J
+      {home:w('H'),away:ru('J'),label:'1st H vs 2nd J'},
+      // Match 85: 1st B vs Best 3rd (E/F/G/I/J)
+      {home:w('B'),away:t3(6),label:'1st B vs Best 3rd'},
+      // Match 86: 1st J vs 2nd H
+      {home:w('J'),away:ru('H'),label:'1st J vs 2nd H'},
+      // Match 87: 1st K vs Best 3rd (D/E/I/J/L)
+      {home:w('K'),away:t3(7),label:'1st K vs Best 3rd'},
+      // Match 88: 2nd D vs 2nd G
+      {home:ru('D'),away:ru('G'),label:'2nd D vs 2nd G'},
+    ];
+    return pairs.map(function(p,i){
+      return {id:'r32_'+i,phase:'r32',home:p.home,away:p.away,label:p.label,played:false,goalsHome:null,goalsAway:null};
+    });
   }
 
   function progressToNextPhase(currentMatches, nextPhase){

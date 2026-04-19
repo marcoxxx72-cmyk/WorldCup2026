@@ -1068,21 +1068,57 @@ function App(){
               })
             ),
 
-            // Current group matches
-            e(Card,{style:{marginBottom:10,padding:'12px 14px'}},
-              e('div',{style:{fontSize:11,fontWeight:'bold',color:G,marginBottom:10}},'Group ',iSelGroup,' - Matches'),
-              iMatches.filter(function(m){return m.group===iSelGroup;}).map(function(m){
-                return e('div',{key:m.id,style:{marginBottom:10,padding:'8px 10px',background:'rgba(0,0,0,0.2)',borderRadius:9,border:'1px solid '+(m.played?'rgba(40,200,40,0.3)':BD)}},
-                  e('div',{style:{display:'flex',alignItems:'center',gap:6}},
-                    e('div',{style:{flex:1,fontSize:11,fontWeight:'bold',textAlign:'right'}},m.home),
-                    e('input',{type:'number',min:0,max:9,value:m.goalsHome===null?'':m.goalsHome,onChange:function(ev){setMatchScore(m.id,parseInt(ev.target.value)||0,m.goalsAway===null?0:m.goalsAway);},style:{width:36,height:32,textAlign:'center',background:'rgba(10,20,50,0.95)',color:G,border:'1px solid '+G,borderRadius:7,fontSize:16,fontWeight:'bold'}}),
-                    e('div',{style:{fontSize:10,color:'#6a86a0',minWidth:10,textAlign:'center'}},'-'),
-                    e('input',{type:'number',min:0,max:9,value:m.goalsAway===null?'':m.goalsAway,onChange:function(ev){setMatchScore(m.id,m.goalsHome===null?0:m.goalsHome,parseInt(ev.target.value)||0);},style:{width:36,height:32,textAlign:'center',background:'rgba(10,20,50,0.95)',color:G,border:'1px solid '+G,borderRadius:7,fontSize:16,fontWeight:'bold'}}),
-                    e('div',{style:{flex:1,fontSize:11,fontWeight:'bold'}},m.away)
-                  )
-                );
-              }),
-              e('button',{onClick:function(){quickSimGroup(iSelGroup);},style:{width:'100%',background:'rgba(212,175,55,0.12)',border:'1px solid rgba(212,175,55,0.3)',borderRadius:8,padding:'7px 0',fontSize:11,color:G,cursor:'pointer',marginTop:4}},'🎲 Auto-sim Group ',iSelGroup)
+            // All group matches sorted by date
+            e(Card,{style:{marginBottom:10,padding:'10px 12px'}},
+              e('div',{style:{fontSize:11,fontWeight:'bold',color:G,marginBottom:10}},'📅 Group ',iSelGroup,' — Matches by date'),
+
+              // Table header
+              e('div',{style:{display:'grid',gridTemplateColumns:'70px 1fr 32px 10px 32px 1fr 28px',gap:3,alignItems:'center',padding:'4px 2px',marginBottom:4,borderBottom:'1px solid rgba(212,175,55,0.2)'}},
+                e('div',{style:{fontSize:8,color:'#6a86a0'}},'DATE/TIME'),
+                e('div',{style:{fontSize:8,color:'#6a86a0',textAlign:'right'}},'HOME'),
+                e('div',null),
+                e('div',null),
+                e('div',null),
+                e('div',{style:{fontSize:8,color:'#6a86a0'}},'AWAY'),
+                e('div',{style:{fontSize:8,color:'#6a86a0',textAlign:'center'}},'')
+              ),
+
+              // Matches sorted by date from FIXTURES
+              (function(){
+                var groupFixtures=FIXTURES.filter(function(f){return f.group===iSelGroup;})
+                  .sort(function(a,b){return (a.date+a.time).localeCompare(b.date+b.time)});
+
+                return iMatches.filter(function(m){return m.group===iSelGroup;})
+                  .map(function(m,idx){
+                    // Find matching fixture for date/time
+                    var fix=groupFixtures[idx]||null;
+                    var dateStr=fix?fix.date.slice(5).replace('-','/'):'-';
+                    var timeStr=fix?fix.time:'';
+                    var isPlayed=m.played;
+                    return e('div',{key:m.id,style:{display:'grid',gridTemplateColumns:'70px 1fr 32px 10px 32px 1fr 28px',gap:3,alignItems:'center',padding:'6px 2px',borderBottom:'1px solid rgba(212,175,55,0.06)',background:isPlayed?'rgba(40,160,40,0.05)':'transparent'}},
+                      e('div',{style:{fontSize:8,color:'#6a86a0',lineHeight:1.4}},
+                        e('div',null,dateStr),
+                        e('div',{style:{color:'#4a6a80'}},timeStr,' UTC')
+                      ),
+                      e('div',{style:{fontSize:10,fontWeight:isPlayed&&m.goalsHome>m.goalsAway?'bold':'normal',color:isPlayed&&m.goalsHome>m.goalsAway?G:'#eee',textAlign:'right',overflow:'hidden',whiteSpace:'nowrap',textOverflow:'ellipsis'}},m.home),
+                      e('input',{type:'number',min:0,max:9,
+                        value:m.goalsHome===null?'':m.goalsHome,
+                        onChange:function(ev){setMatchScore(m.id,parseInt(ev.target.value)||0,m.goalsAway===null?0:m.goalsAway);},
+                        style:{width:32,height:28,textAlign:'center',background:'rgba(10,20,50,0.95)',color:G,border:'1px solid '+(isPlayed?'rgba(40,200,40,0.4)':G),borderRadius:6,fontSize:14,fontWeight:'bold'}
+                      }),
+                      e('div',{style:{fontSize:9,color:'#6a86a0',textAlign:'center'}},'-'),
+                      e('input',{type:'number',min:0,max:9,
+                        value:m.goalsAway===null?'':m.goalsAway,
+                        onChange:function(ev){setMatchScore(m.id,m.goalsHome===null?0:m.goalsHome,parseInt(ev.target.value)||0);},
+                        style:{width:32,height:28,textAlign:'center',background:'rgba(10,20,50,0.95)',color:G,border:'1px solid '+(isPlayed?'rgba(40,200,40,0.4)':G),borderRadius:6,fontSize:14,fontWeight:'bold'}
+                      }),
+                      e('div',{style:{fontSize:10,fontWeight:isPlayed&&m.goalsAway>m.goalsHome?'bold':'normal',color:isPlayed&&m.goalsAway>m.goalsHome?G:'#eee',overflow:'hidden',whiteSpace:'nowrap',textOverflow:'ellipsis'}},m.away),
+                      e('div',{style:{textAlign:'center',fontSize:11}},isPlayed?'✅':'')
+                    );
+                  });
+              })(),
+
+              e('button',{onClick:function(){quickSimGroup(iSelGroup);},style:{width:'100%',background:'rgba(212,175,55,0.12)',border:'1px solid rgba(212,175,55,0.3)',borderRadius:8,padding:'7px 0',fontSize:11,color:G,cursor:'pointer',marginTop:8}},'🎲 Auto-sim Group ',iSelGroup)
             ),
 
             // Group standing for selected group

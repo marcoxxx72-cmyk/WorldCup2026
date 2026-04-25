@@ -627,12 +627,12 @@ function App(){
   var s29=useState('bracket');var simView=s29[0];var setSimView=s29[1];
 
   var t=T[lang];
+  var defaultTeam=MY_TEAM[lang];
   var activeTeam=myTeam||defaultTeam;
   var filteredFixtures=fixtureMyOnly?FIXTURES.filter(function(f){return f.home===activeTeam.team||f.away===activeTeam.team;}):FIXTURES;
   var questions=QUIZ[lang];
   var polls=POLLS[lang];
   var affiliates=AFFILIATES[lang];
-  var defaultTeam=MY_TEAM[lang];
 
   useEffect(function(){
     function calc(){

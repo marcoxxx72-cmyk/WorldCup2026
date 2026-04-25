@@ -557,33 +557,72 @@ var TEAM_STRENGTH = {
 
 function getStrength(team){return TEAM_STRENGTH[team]||70;}
 
-// - TV CHANNELS PER COUNTRY -
-var TV_CHANNELS = {
-  en:['ITV1','BBC One','ITV4','BBC iPlayer'],
-  fr:['TF1','M6','beIN Sports','France 2'],
-  es:['TVE La 1','Telecinco','DAZN','Gol'],
-  pt:['RTP1','Sport TV','SIC','Eleven Sports'],
-  it:['RAI 1','Mediaset','Sky Sport','DAZN'],
-  de:['ARD','ZDF','MagentaTV','RTL']
+// ── OFFICIAL TV BROADCAST RIGHTS - FIFA WORLD CUP 2026 ──────────
+// Source: FIFA official media partners, confirmed deals
+var TV_INFO = {
+  en:{
+    free:['BBC','ITV'],
+    paid:['BBC iPlayer','ITVX'],
+    note:'All 104 matches FREE on BBC & ITV',
+    stream:'BBC iPlayer / ITVX'
+  },
+  fr:{
+    free:['M6'],
+    paid:['beIN Sports'],
+    note:'54 matchs gratuits sur M6 (dont tous les matchs France). Reste sur beIN Sports',
+    stream:'6play (gratuit) / beIN CONNECT'
+  },
+  es:{
+    free:['RTVE / La 1'],
+    paid:['Mediapro','DAZN'],
+    note:'Tous les matchs Espagne gratuits sur RTVE. Couverture complete sur DAZN',
+    stream:'RTVE Play (gratuit) / DAZN'
+  },
+  pt:{
+    free:['Sport TV Portugal'],
+    paid:['Livemode'],
+    note:'Couverture complete sur Sport TV Portugal',
+    stream:'Sport TV App'
+  },
+  it:{
+    free:['RAI 1','RAI 2'],
+    paid:['DAZN'],
+    note:'28 matchs gratuits sur RAI (ouverture, QF, SF, Finale). Tous les matchs sur DAZN',
+    stream:'RaiPlay (gratuit) / DAZN'
+  },
+  de:{
+    free:['ARD','ZDF'],
+    paid:['MagentaTV'],
+    note:'Matchs selectionnes gratuits sur ARD/ZDF. Tous les 104 matchs en 4K sur MagentaTV',
+    stream:'ARD Mediathek / ZDF Mediathek / MagentaTV'
+  }
 };
 
-// Match-specific TV - which channel shows which match per country
-var MATCH_TV = {
-  'France':   {en:'ITV1',    fr:'TF1',    es:'TVE La 1', pt:'Sport TV', it:'RAI 1',    de:'ZDF'},
-  'England':  {en:'ITV1',    fr:'beIN',   es:'DAZN',     pt:'Sport TV', it:'Sky Sport', de:'MagentaTV'},
-  'Spain':    {en:'BBC One', fr:'M6',     es:'TVE La 1', pt:'RTP1',     it:'RAI 1',    de:'ARD'},
-  'Germany':  {en:'BBC One', fr:'M6',     es:'TVE La 1', pt:'Sport TV', it:'DAZN',     de:'ARD'},
-  'Portugal': {en:'ITV1',    fr:'beIN',   es:'DAZN',     pt:'RTP1',     it:'Sky Sport', de:'MagentaTV'},
-  'Brazil':   {en:'BBC One', fr:'TF1',    es:'Gol',      pt:'SIC',      it:'RAI 1',    de:'ZDF'},
-  'Argentina':{en:'ITV1',    fr:'TF1',    es:'TVE La 1', pt:'Sport TV', it:'RAI 1',    de:'ARD'},
-  'Mexico':   {en:'BBC One', fr:'beIN',   es:'Telecinco', pt:'Eleven',  it:'DAZN',     de:'MagentaTV'},
-  'USA':      {en:'ITV4',    fr:'M6',     es:'DAZN',     pt:'Sport TV', it:'Sky Sport', de:'ZDF'},
-  'default':  {en:'ITV/BBC', fr:'TF1/M6', es:'TVE/DAZN', pt:'RTP/Sport TV', it:'RAI/Sky', de:'ARD/ZDF'}
+// Team-specific broadcast channel per country
+var TEAM_TV = {
+  'England':  {en:'BBC/ITV',  fr:'beIN Sports', es:'DAZN',     pt:'Sport TV', it:'DAZN',     de:'MagentaTV'},
+  'France':   {en:'BBC/ITV',  fr:'M6',          es:'RTVE',     pt:'Sport TV', it:'RAI 1',    de:'ARD/ZDF'},
+  'Spain':    {en:'BBC/ITV',  fr:'M6',          es:'RTVE La 1',pt:'Sport TV', it:'RAI 1',    de:'ARD'},
+  'Germany':  {en:'BBC/ITV',  fr:'beIN Sports', es:'RTVE',     pt:'Sport TV', it:'DAZN',     de:'ARD/ZDF'},
+  'Portugal': {en:'BBC/ITV',  fr:'beIN Sports', es:'DAZN',     pt:'Sport TV', it:'DAZN',     de:'MagentaTV'},
+  'Brazil':   {en:'BBC/ITV',  fr:'M6',          es:'DAZN',     pt:'Sport TV', it:'RAI 1',    de:'ARD/ZDF'},
+  'Argentina':{en:'BBC/ITV',  fr:'M6',          es:'RTVE',     pt:'Sport TV', it:'RAI 1',    de:'ARD/ZDF'},
+  'Mexico':   {en:'BBC/ITV',  fr:'beIN Sports', es:'RTVE',     pt:'Sport TV', it:'DAZN',     de:'MagentaTV'},
+  'USA':      {en:'BBC/ITV',  fr:'beIN Sports', es:'DAZN',     pt:'Sport TV', it:'DAZN',     de:'ARD/ZDF'},
+  'Morocco':  {en:'BBC/ITV',  fr:'beIN Sports', es:'DAZN',     pt:'Sport TV', it:'DAZN',     de:'MagentaTV'},
+  'Senegal':  {en:'BBC/ITV',  fr:'M6',          es:'DAZN',     pt:'Sport TV', it:'DAZN',     de:'MagentaTV'},
+  'Norway':   {en:'BBC/ITV',  fr:'beIN Sports', es:'DAZN',     pt:'Sport TV', it:'DAZN',     de:'ARD/ZDF'},
+  'Croatia':  {en:'BBC/ITV',  fr:'beIN Sports', es:'DAZN',     pt:'Sport TV', it:'RAI',      de:'MagentaTV'},
+  'default':  {en:'BBC/ITV',  fr:'M6/beIN',     es:'RTVE/DAZN',pt:'Sport TV', it:'RAI/DAZN', de:'ARD/MagentaTV'}
 };
 
 function getTV(team, lang){
-  var ch=MATCH_TV[team]||MATCH_TV['default'];
-  return ch[lang]||ch['en']||'';
+  var ch=TEAM_TV[team]||TEAM_TV['default'];
+  return ch[lang]||'';
+}
+
+function getTVInfo(lang){
+  return TV_INFO[lang]||TV_INFO['en'];
 }
 
 function Card(props){
@@ -1134,6 +1173,32 @@ function App(){
           )
         ),
 
+        // TV Channels info card
+        e(Card,{style:{marginBottom:13,padding:'12px 14px'}},
+          e('div',{style:{display:'flex',alignItems:'center',gap:8,marginBottom:8}},
+            e('div',{style:{fontSize:16}},'📺'),
+            e('div',{style:{fontSize:12,fontWeight:'bold',color:G}},
+              lang==='fr'?'Ou regarder la Coupe du Monde 2026':
+              lang==='es'?'Donde ver la Copa del Mundo 2026':
+              lang==='pt'?'Onde assistir a Copa do Mundo 2026':
+              lang==='it'?'Dove guardare la Coppa del Mondo 2026':
+              lang==='de'?'Wo die WM 2026 sehen':
+              'Where to Watch World Cup 2026'
+            )
+          ),
+          e('div',{style:{display:'flex',gap:8,flexWrap:'wrap',marginBottom:6}},
+            getTVInfo(lang).free.map(function(ch,i){
+              return e('div',{key:i,style:{background:'rgba(40,160,40,0.2)',border:'1px solid rgba(40,200,40,0.4)',borderRadius:7,padding:'3px 10px',fontSize:11,fontWeight:'bold',color:'#90ee90'}},ch,' ✓ FREE');
+            }).concat(
+              getTVInfo(lang).paid.map(function(ch,i){
+                return e('div',{key:'p'+i,style:{background:'rgba(212,175,55,0.12)',border:'1px solid rgba(212,175,55,0.3)',borderRadius:7,padding:'3px 10px',fontSize:11,color:G}},ch);
+              })
+            )
+          ),
+          e('div',{style:{fontSize:10,color:'#7a96b0',lineHeight:1.5}},getTVInfo(lang).note),
+          e('div',{style:{fontSize:9,color:'#5a7090',marginTop:4}},'📱 Stream: ',getTVInfo(lang).stream)
+        ),
+
         // Key stats
         e('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:9,marginBottom:13}},
           t.keyInfo.map(function(label,i){return e(Card,{key:i,style:{textAlign:'center',padding:13}},e('div',{style:{fontSize:18}},['🌍','🏅','⚽','📅'][i]),e('div',{style:{fontSize:9,color:'#6a86a0',marginTop:3}},label),e('div',{style:{fontSize:13,fontWeight:'bold',color:G,marginTop:2}},t.keyVals[i]));})
@@ -1249,7 +1314,7 @@ function App(){
                 e('div',{style:{padding:'4px 12px',background:'rgba(212,175,55,0.15)',borderRadius:8,fontSize:12,fontWeight:'bold',color:G,margin:'0 8px'}},'VS'),
                 e('div',{style:{flex:1,textAlign:'right',fontSize:13,fontWeight:f.away===activeTeam.team?'bold':'normal',color:f.away===activeTeam.team?G:'#eee8d5'}},tn(f.away,lang))
               ),
-              f.stadium&&e('div',{style:{fontSize:9,color:'#5a7090',marginTop:6}},f.stadium,' - ',f.city),
+              f.stadium&&e('div',{style:{fontSize:9,color:'#5a7090',marginTop:6}},f.stadium,' - ',f.city,' | 📺 ',getTV(f.home,lang)||getTV(f.away,lang)),
               (f.home!=='FINAL'&&f.home!=='3rd Place')&&e('div',{style:{fontSize:9,color:'rgba(212,175,55,0.6)',marginTop:3}},'📺 ',getTV(f.home,lang)||getTV(f.away,lang)||'')
             );
           })
